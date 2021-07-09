@@ -1,0 +1,108 @@
+openapi: '3.0.2'
+info:
+  title: Card Swiper API
+  description: API to retrieve user information for display in a card swiper
+  version: '1.0'
+servers:
+  - url: https://plus1labs.io/v1
+paths:
+  /cards:
+    post:
+      tags:
+        - "Swiper Data"
+      summary: Fetches profiles for display in the card swiper
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: ff7c2ff2-8b5d-4d17-8aad-7b76fe33e15d
+                count:
+                  type: integer
+                  example: 50
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                      example: 22.77
+                    lng:
+                      type: number
+                      example: -95.79
+        
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId: 
+                      type: string
+                      example: cd765df5-a787-4c50-bc43-ee01d50c28c4
+                    name: 
+                      type: string
+                      example: Julia
+                    location: 
+                      type: object
+                      properties:
+                        lat:
+                          type: number
+                          example: 32.77
+                        lng:
+                          type: number
+                          example: -96.79
+                    interests:
+                      type: array
+                      items:
+                        type: string
+                      example: [dogs,books,hiking,music]
+  /profiles/{userId}:
+    get:
+      tags:
+        - "User Profile Data"
+      summary: Fetch a single user's profile
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 8d956fdb-f223-4949-afc8-4311a0816d1b
+      responses:
+        '200':
+          description: A single user profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    userId: 
+                      type: string
+                      example: cd765df5-a787-4c50-bc43-ee01d50c28c4
+                    name: 
+                      type: string
+                      example: Steven
+                    location: 
+                      type: object
+                      properties:
+                        lat:
+                          type: number
+                          example: 32.77
+                        lng:
+                          type: number
+                          example: -96.79
+                    interests:
+                      type: array
+                      items:
+                        type: string
+                      example: [cars,movies,travel,coffee]
+                  
+
